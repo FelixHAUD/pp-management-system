@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav className="bg-white shadow-md border-b w-full">
+    <nav className="bg-white shadow-md border-b w-full sticky top-0 z-50">
       <div className="flex justify-between items-center px-4 py-4 w-full">
         
         {/* Links on the far left */}
@@ -24,6 +24,9 @@ export default function Navbar() {
           </NavLink>
           <NavLink to="/login" className={({ isActive }) => `${isActive ? "underline text-blue-600" : "hover:text-blue-500"} mx-4`}>
             Login
+          </NavLink>
+          <NavLink to="/register" className={({ isActive }) => `${isActive ? "underline text-blue-600" : "hover:text-blue-500"} mx-4`}>
+            Register
           </NavLink>
         </div>
 
