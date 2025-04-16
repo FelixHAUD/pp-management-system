@@ -18,6 +18,7 @@ import LiveFeed from './pages/Live-Feed';
 import AdminDashboard from './pages/AdminDashboard';
 import ManagerDashboard from './pages/ManagerDashboard';
 import EmployeeDashboard from './pages/EmployeeDashboard';
+import CustomerDashboard from './pages/CustomerDashboard';
 
 export default function App() {
   return (
@@ -61,6 +62,14 @@ export default function App() {
           element={
             <ProtectedRoute allowedRoles={['customer']}>
               <LiveFeed />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer"
+          element={
+            <ProtectedRoute allowedRoles={['customer']}>
+              <CustomerDashboard />
             </ProtectedRoute>
           }
         />

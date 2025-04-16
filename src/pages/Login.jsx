@@ -4,12 +4,16 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("customer");
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!email && !password) {
       setError("Please enter both email and password.");
       return;
@@ -19,17 +23,11 @@ export default function Login() {
       return;
     }
     if (email && !password) {
-        setError("Please enter your password");
-        return;
-      }
-      const role = email.includes("admin")
-      ? "admin"
-      : email.includes("manager")
-      ? "manager"
-      : email.includes("employee")
-      ? "employee"
-      : "customer";
-  
+      setError("Please enter your password");
+      return;
+    }
+
+    // Use manually selected role
     login(email, role);
     setError("");
     navigate("/");
@@ -63,10 +61,23 @@ export default function Login() {
               placeholder="••••••••"
             />
             <p className="text-sm text-right">
-             <a href="/forgot-password" className="text-blue-600 hover:underline">
+              <a href="/forgot-password" className="text-blue-600 hover:underline">
                 Forgot password?
-            </a>
+              </a>
             </p>
+          </div>
+          <div>
+            <label className="block text-gray-600 mb-1">Role</label>
+            <select
+              className="w-full border border-gray-300 rounded px-3 py-2"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="customer">Customer</option>
+              <option value="employee">Employee</option>
+              <option value="manager">Manager</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
           <button
             type="submit"
@@ -76,10 +87,10 @@ export default function Login() {
           </button>
         </form>
         <p className="text-sm text-center mt-4">
-            Don't have an account?{" "}
-            <a href="/register" className="text-blue-600 hover:underline">
-                Sign up
-            </a>
+          Don't have an account?{" "}
+          <a href="/register" className="text-blue-600 hover:underline">
+            Sign up
+          </a>
         </p>
       </div>
     </div>
