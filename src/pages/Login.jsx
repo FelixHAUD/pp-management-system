@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -21,9 +22,17 @@ export default function Login() {
         setError("Please enter your password");
         return;
       }
-    // Simulate login success
+      const role = email.includes("admin")
+      ? "admin"
+      : email.includes("manager")
+      ? "manager"
+      : email.includes("employee")
+      ? "employee"
+      : "customer";
+  
+    login(email, role);
     setError("");
-    navigate("/"); // redirect to home
+    navigate("/");
   };
 
   return (
