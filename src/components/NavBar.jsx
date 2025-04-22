@@ -1,8 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const [viewAsCustomer, setViewAsCustomer] = useState(false);
+
+  // Determine if we should show customer tabs (real customer OR staff in view mode)
+  const showCustomerTabs =
+    user?.role === "customer" || viewAsCustomer || !user;
 
   return (
     <nav className="bg-white shadow-md border-b w-full sticky top-0 z-50">
@@ -14,7 +20,7 @@ export default function Navbar() {
             Home
           </NavLink>
 
-          {user?.role === "customer" && (
+          {showCustomerTabs && (
             <>
               <NavLink to="/customer" className={({ isActive }) => `${isActive ? "underline text-blue-600" : "hover:text-blue-500"} mx-4`}>
                 Customer Dashboard
@@ -51,8 +57,19 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* RIGHT: Auth buttons and logo */}
+        {/* RIGHT: Auth and Logo */}
         <div className="flex items-center">
+
+          {/* View-as toggle for staff */}
+          {user && user.role !== "customer" && (
+            <button
+              onClick={() => setViewAsCustomer(!viewAsCustomer)}
+              className="text-sm text-blue-500 hover:underline mx-2"
+            >
+              {viewAsCustomer ? "Exit Customer View" : "View as Customer"}
+            </button>
+          )}
+
           {!user ? (
             <>
               <NavLink to="/login" className={({ isActive }) => `${isActive ? "underline text-blue-600" : "hover:text-blue-500"} mx-4`}>
