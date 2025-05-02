@@ -12,27 +12,27 @@ const mockUser = {
   ],
 };
 
-const [slots, setSlots] = useState({
-  grooming: {
-    "2025-04-28": ["10:00 AM", "11:30 AM", "2:00 PM"],
-    "2025-04-29": ["9:00 AM", "1:00 PM"],
-  },
-  boarding: {
-    "2025-04-28": ["Drop-off: Anytime", "Pick-up: 5:00 PM"],
-    "2025-04-30": ["Drop-off: Anytime", "Pick-up: 3:00 PM"],
-  },
-  training: {
-    "2025-04-29": ["12:00 PM", "4:00 PM"],
-    "2025-05-01": ["11:00 AM", "1:00 PM"],
-  },
-});
-
 
 export default function Reservations() {
   const [service, setService] = useState("grooming");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [selectedDog, setSelectedDog] = useState("");
+
+  const [slots, setSlots] = useState({
+    grooming: {
+      "2025-04-28": ["10:00 AM", "11:30 AM", "2:00 PM"],
+      "2025-04-29": ["9:00 AM", "1:00 PM"],
+    },
+    boarding: {
+      "2025-04-28": ["Drop-off: Anytime", "Pick-up: 5:00 PM"],
+      "2025-04-30": ["Drop-off: Anytime", "Pick-up: 3:00 PM"],
+    },
+    training: {
+      "2025-04-29": ["12:00 PM", "4:00 PM"],
+      "2025-05-01": ["11:00 AM", "1:00 PM"],
+    },
+  });
 
   const dateKey = selectedDate.toISOString().split("T")[0];
   const availableSlots = slots[service]?.[dateKey] || [];

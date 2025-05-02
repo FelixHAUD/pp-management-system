@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {Routes, Route } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -22,7 +22,7 @@ import CustomerDashboard from './pages/CustomerDashboard';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <Routes>
 
@@ -100,6 +100,6 @@ export default function App() {
           }
         />
       </Routes>
-    </BrowserRouter>
+      </>
   );
 }
